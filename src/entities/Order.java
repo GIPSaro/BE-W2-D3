@@ -14,13 +14,13 @@ public class Order {
     private List<Product> products;
     private Customer customer;
 
-    public Order(Customer customer) {
+    public Order(Customer customer, LocalDate orderDate) {
         Random rndm = new Random();
         this.id = rndm.nextLong();
         this.customer = customer;
         this.status = "Just created";
-        this.orderDate = LocalDate.now();
-        this.deliveryDate = LocalDate.now().plusWeeks(1);
+        this.orderDate = orderDate;
+        this.deliveryDate = orderDate.plusWeeks(1);
         this.products = new ArrayList<>();
     }
 

@@ -2,6 +2,7 @@ import entities.Customer;
 import entities.Order;
 import entities.Product;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,10 @@ public class Main {
         getBooks().forEach(System.out::println);
         System.out.println("---------------------------------- ES 2 ------------------------------------");
         getBabyOrders().forEach(System.out::println);
+        System.out.println("---------------------------------- ES 3 ------------------------------------");
+        getBoysProductsWithDiscount().forEach(System.out::println);
+        System.out.println("---------------------------------- ES 4 ------------------------------------");
+        getTier2Products().forEach(System.out::println);
     }
 
     // ESERCIZIO 1
@@ -43,6 +48,28 @@ public class Main {
     }
 
     //ESERCIZIO 3
+    public static List<Product> getBoysProductsWithDiscount() {
+        return warehouse.stream().filter(p -> p.getCategory().equals("Boys")).map(product -> {
+            product.setPrice(product.getPrice() * 0.90);
+            return product;
+        }).toList();
+    }
+
+    // ESERCIZIO 4
+    public static List<Product> getTier2Products() {
+        List<Order> filteredByTierAndDates = orders.stream()
+                .filter(order -> order.getCustomer().getTier() == 2
+                        && order.getOrderDate().isBefore(LocalDate.parse("2024-08-09"))
+                        && order.getOrderDate().isAfter(LocalDate.parse("2024-07-31")))
+                .toList();
+
+        List<Product> products = new ArrayList<>();
+
+        for (Order order : filteredByTierAndDates) {
+            products.addAll(order.getProducts());
+        }
+        return products;
+    }
 
 
     public static void initializeWarehouse() {
@@ -71,11 +98,11 @@ public class Main {
     }
 
     public static void placeOrders() {
-        Order edwardOrder = new Order(customers.get(0));
-        Order pennyOrder = new Order(customers.get(1));
-        Order frodoOrder = new Order(customers.get(2));
-        Order steveOrder = new Order(customers.get(3));
-        Order frodoOrder2 = new Order(customers.get(2));
+        Order edwardOrder = new Order(customers.get(0), LocalDate.of(2024, 8, 1));
+        Order pennyOrder = new Order(customers.get(1), LocalDate.of(2024, 8, 2));
+        Order frodoOrder = new Order(customers.get(2), LocalDate.of(2024, 8, 3));
+        Order steveOrder = new Order(customers.get(3), LocalDate.of(2024, 8, 4));
+        Order frodoOrder2 = new Order(customers.get(2), LocalDate.of(2024, 8, 5));
 
         Product iPhone = warehouse.get(0);
         Product korBook = warehouse.get(1);
