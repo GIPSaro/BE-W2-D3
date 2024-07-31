@@ -26,7 +26,8 @@ public class Main {
         orders.forEach(System.out::println);
         System.out.println("---------------------------------- ES 1 ------------------------------------");
         getBooks().forEach(System.out::println);
-
+        System.out.println("---------------------------------- ES 2 ------------------------------------");
+        getBabyOrders().forEach(System.out::println);
     }
 
     // ESERCIZIO 1
@@ -34,6 +35,14 @@ public class Main {
         return warehouse.stream().filter(product -> product.getCategory().equals("Books") && product.getPrice() > 100).toList();
 
     }
+
+    //ESERCIZIO 2
+    public static List<Order> getBabyOrders() {
+
+        return orders.stream().filter(order -> order.getProducts().stream().anyMatch(product -> product.getCategory().equals("Baby"))).toList();
+    }
+
+    //ESERCIZIO 3
 
 
     public static void initializeWarehouse() {
