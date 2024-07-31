@@ -17,7 +17,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer [id=" + id + ", name=" + name + ", tier=" + tier + "]";
+        return "Customer [id= " + id + ", name= " + name + ", tier= " + tier + "]";
     }
 
     public String getName() {
